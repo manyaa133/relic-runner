@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relic Runner: The Lost Expeditions</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="game-wrapper">
+        <!-- Main Game Canvas -->
+        <canvas id="game-canvas"></canvas>
+
+        <!-- Optional CRT Scanlines Effect -->
+        <div id="crt-overlay"></div>
+
+        <!-- ==========================================
+             IN-GAME HUD (Heads-Up Display)
+             ========================================== -->
+        <div id="hud" style="display: none;">
+            <!-- Left: Character & Lives -->
+            <div class="hud-section">
+                <div class="hud-char-badge">
+                    <div id="hud-char-icon"></div>
+                    <span id="hud-char-name">Alex</span>
+                </div>
+                <div id="hud-lives-count">
+                    <span class="hud-heart">❤️</span>
+                    <span class="hud-heart">❤️</span>
+                    <span class="hud-heart">❤️</span>
+                </div>
+            </div>
+
+            <!-- Center: Level Name & Relic Goal -->
+            <div class="hud-section">
+                <span id="hud-level-name">Level 1: Emerald Canopy</span>
+                <span id="hud-relic-indicator" class="relic-missing">RELIC REQUIRED</span>
+            </div>
+
+            <!-- Right: Score, Keys & Fullscreen -->
+            <div class="hud-section">
+                <div class="hud-stat-item">🔑 <span id="hud-keys">0</span></div>
+                <div class="hud-stat-item">SCORE: <span id="hud-score">000000</span></div>
+                <button id="btn-hud-fullscreen" title="Toggle Fullscreen" style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-color); color: var(--primary); border-radius: 4px; padding: 2px 8px; cursor: pointer; font-family: var(--font-pixel); font-size: 0.9rem; pointer-events: auto;">⛶</button>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             MAIN MENU
+             ========================================== -->
+        <div id="main-menu" class="menu-overlay">
+            <h1 class="menu-title">RELIC RUNNER</h1>
+            <p class="menu-subtitle">THE LOST EXPEDITIONS</p>
+
+            <div class="menu-buttons">
+                <button id="btn-new-game" class="btn btn-primary">NEW GAME</button>
+                <button id="btn-continue" class="btn" disabled>CONTINUE</button>
+                <button id="btn-char-select" class="btn">HERO SELECT</button>
+                <button id="btn-how-to-play" class="btn">HOW TO PLAY</button>
+                <button id="btn-settings" class="btn">SETTINGS</button>
+            </div>
+
+            <div id="menu-high-score" style="margin-top: 24px; font-family: var(--font-pixel); color: var(--accent); font-weight: bold;">
+                HIGH SCORE: 000000
+            </div>
+        </div>
+
+        <!-- ==========================================
+             CHARACTER SELECT MENU
+             ========================================== -->
+        <div id="char-select-menu" class="menu-overlay" style="display: none;">
+            <h2 class="menu-title" style="font-size: 2rem;">CHOOSE YOUR HERO</h2>
+            <p class="menu-subtitle">Each adventurer brings distinct speed, jump agility, and survival advantages.</p>
+
+            <div id="character-cards-container" class="character-grid">
+                <!-- Dynamically populated from characters.js -->
+            </div>
+
+            <button id="btn-back-char-select" class="btn" style="width: 220px;">BACK TO MENU</button>
+        </div>
+
+        <!-- ==========================================
+             PAUSE MENU
+             ========================================== -->
+        <div id="pause-menu" class="menu-overlay" style="display: none;">
+            <h2 class="menu-title" style="font-size: 2.2rem; color: var(--accent);">GAME PAUSED</h2>
+            <div class="menu-buttons" style="margin-top: 15px;">
+                <button id="btn-resume" class="btn btn-primary">RESUME</button>
+                <button id="btn-restart-checkpoint" class="btn">CHECKPOINT RESPAWN</button>
+                <button id="btn-restart-level" class="btn">RESTART LEVEL</button>
+                <button id="btn-pause-settings" class="btn">SETTINGS</button>
+                <button id="btn-pause-main-menu" class="btn btn-danger">QUIT TO MENU</button>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             GAME OVER SCREEN
+             ========================================== -->
+        <div id="game-over-menu" class="menu-overlay" style="display: none;">
+            <h2 class="menu-title" style="color: var(--danger); font-size: 2.5rem;">ALL LIVES LOST</h2>
+            <p class="menu-subtitle" style="color: #ff6b81;">Your expedition was overcome by the ancient perils.</p>
+
+            <div style="background: rgba(0,0,0,0.5); padding: 14px 28px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 20px; font-family: var(--font-pixel);">
+                <div style="margin-bottom: 6px;">FINAL SCORE: <span id="gameover-score" style="color: var(--accent); font-weight: bold;">000000</span></div>
+                <div>REACHED: <span id="gameover-level" style="color: var(--primary);">Level 1</span></div>
+            </div>
+
+            <div class="menu-buttons">
+                <button id="btn-gameover-restart" class="btn btn-primary">START AGAIN (LVL 1)</button>
+                <button id="btn-gameover-char-select" class="btn">HERO SELECT</button>
+                <button id="btn-gameover-main-menu" class="btn">MAIN MENU</button>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             VICTORY SCREEN
+             ========================================== -->
+        <div id="victory-menu" class="menu-overlay" style="display: none;">
+            <h2 class="menu-title" style="color: var(--success); font-size: 2.4rem;">EXPEDITION COMPLETE!</h2>
+            <p class="menu-subtitle" style="color: #2ed573;">All sacred relics recovered! You conquered every ancient chamber!</p>
+
+            <div style="background: rgba(0,0,0,0.5); padding: 16px 30px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 20px; font-family: var(--font-pixel);">
+                <div style="margin-bottom: 6px;">FINAL SCORE: <span id="victory-score" style="color: var(--accent); font-weight: bold;">000000</span></div>
+                <div>EXPEDITION TIME: <span id="victory-time" style="color: var(--primary);">120s</span></div>
+            </div>
+
+            <div class="menu-buttons">
+                <button id="btn-victory-replay" class="btn btn-primary">PLAY AGAIN</button>
+                <button id="btn-victory-main-menu" class="btn">MAIN MENU</button>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             SETTINGS MODAL
+             ========================================== -->
+        <div id="settings-modal" class="menu-overlay" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">SETTINGS</h3>
+                    <button id="btn-close-settings" class="btn" style="padding: 4px 10px; font-size: 0.9rem;">✕</button>
+                </div>
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <span>Master Volume</span>
+                        <input id="setting-master-volume" type="range" min="0" max="100" value="80">
+                    </div>
+                    <div class="setting-item">
+                        <span>Music Volume</span>
+                        <input id="setting-music-volume" type="range" min="0" max="100" value="70">
+                    </div>
+                    <div class="setting-item">
+                        <span>SFX Volume</span>
+                        <input id="setting-sfx-volume" type="range" min="0" max="100" value="80">
+                    </div>
+                    <div class="setting-item">
+                        <span>Mute Audio</span>
+                        <input id="setting-mute" type="checkbox">
+                    </div>
+                    <div class="setting-item">
+                        <span>CRT Scanlines Filter</span>
+                        <input id="setting-crt" type="checkbox" checked>
+                    </div>
+                    <div class="setting-item">
+                        <span>Screen Shake Impact</span>
+                        <input id="setting-screenshake" type="checkbox" checked>
+                    </div>
+                    <div class="setting-item">
+                        <span>Fullscreen Mode</span>
+                        <button id="btn-toggle-fullscreen" class="btn" style="padding: 6px 14px; font-size: 0.85rem;">TOGGLE ⛶</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             HOW TO PLAY MODAL
+             ========================================== -->
+        <div id="how-to-play-modal" class="menu-overlay" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">EXPEDITION GUIDE</h3>
+                    <button id="btn-close-how-to-play" class="btn" style="padding: 4px 10px; font-size: 0.9rem;">✕</button>
+                </div>
+
+                <div class="help-section">
+                    <div class="help-title">🕹️ DUAL KEYBOARD CONTROLS (WASD & ARROW KEYS)</div>
+                    <div class="help-text" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px;">
+                        <div style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px; border: 1px solid var(--border-color);">
+                            <div style="color: var(--primary); font-weight: bold; font-family: var(--font-pixel); margin-bottom: 4px;">MOVE LEFT:</div>
+                            <div><span class="key-badge">A</span> / <span class="key-badge">←</span></div>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px; border: 1px solid var(--border-color);">
+                            <div style="color: var(--primary); font-weight: bold; font-family: var(--font-pixel); margin-bottom: 4px;">MOVE RIGHT:</div>
+                            <div><span class="key-badge">D</span> / <span class="key-badge">→</span></div>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px; border: 1px solid var(--border-color);">
+                            <div style="color: var(--accent); font-weight: bold; font-family: var(--font-pixel); margin-bottom: 4px;">JUMP:</div>
+                            <div><span class="key-badge">W</span> / <span class="key-badge">↑</span> / <span class="key-badge">Space</span></div>
+                        </div>
+                        <div style="background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px; border: 1px solid var(--border-color);">
+                            <div style="color: var(--text-dim); font-weight: bold; font-family: var(--font-pixel); margin-bottom: 4px;">DOWN:</div>
+                            <div><span class="key-badge">S</span> / <span class="key-badge">↓</span></div>
+                        </div>
+                    </div>
+                    <div style="font-size: 0.82rem; color: var(--text-dim); margin-top: 8px;">
+                        • Both WASD and Arrow Keys work interchangeably and simultaneously.<br>
+                        • <span class="key-badge">ESC</span> or <span class="key-badge">P</span> : Pause Game
+                    </div>
+                </div>
+
+                <div class="help-section">
+                    <div class="help-title">✨ RESPONSIVE PHYSICS</div>
+                    <div class="help-text">
+                        • <b>Coyote Time</b>: You can jump for a brief moment even after stepping off a platform edge.<br>
+                        • <b>Jump Buffering</b>: Jump inputs registered right before touching down will trigger automatically on landing.<br>
+                        • <b>Corner Slipping</b>: Grazing ceiling corners gently nudges your character onto the platform.
+                    </div>
+                </div>
+
+                <div class="help-section">
+                    <div class="help-title">💎 OBJECTIVES & COLLECTIBLES</div>
+                    <div class="help-text">
+                        • <b>Coins & Gems</b>: Earn bonus exploration points.<br>
+                        • <b>Ancient Keys 🔑</b>: Unlock sealed stone gates blocking your route.<br>
+                        • <b>Sacred Relic 🏆</b>: Every chamber requires claiming its Sacred Relic before the Exit Portal opens!<br>
+                        • <b>Extra Life Heart ❤️</b>: Restores +1 Life (max 6) to keep your expedition alive!
+                    </div>
+                </div>
+
+                <div class="help-section">
+                    <div class="help-title">🚩 CHECKPOINTS & LIVES SYSTEM</div>
+                    <div class="help-text">
+                        • Touching an ancient totem activates a <b>Checkpoint</b>, saving your respawn location.<br>
+                        • Dying consumes <b>1 Life</b> and respawns you with temporary invulnerability.<br>
+                        • If all lives reach <b>0</b>, game is over and the run must restart from Level 1!
+                    </div>
+                </div>
+
+                <div class="help-section">
+                    <div class="help-title">👾 COMBAT & HAZARDS</div>
+                    <div class="help-text">
+                        • Stomp patrolling crawlers and flying foes by landing on their heads from above.<br>
+                        • Dodge rhythmic flame jets, oscillating sawblades, and turret blasts!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Game Script Entry (Strict Relative Path) -->
+    <script type="module" src="./js/main.js"></script>
+</body>
+</html>
+

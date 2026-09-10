@@ -1,0 +1,10 @@
+# Node & Dependency files
+node_modules/
+package-lock.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
