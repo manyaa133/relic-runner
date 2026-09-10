@@ -9,7 +9,9 @@
 ## 🎮 Play Online via GitHub Pages
 
 You can play the game immediately in any modern desktop browser:
-👉 **[https://manyaa113.github.io/relic-runner/](https://manyaa113.github.io/relic-runner/)**
+👉 **[https://manyaa133.github.io/relic-runner/](https://manyaa133.github.io/relic-runner/)**
+
+*(Replace with your actual GitHub username and repository name once published)*
 
 ---
 
@@ -124,7 +126,7 @@ Deploying takes under 1 minute with zero build commands:
    git add .
    git commit -m "Initial commit: Relic Runner game"
    git branch -M main
-   git remote add origin https://github.com/manyaa113/relic-runner.git
+   git remote add origin https://github.com/manyaa133/relic-runner.git
    git push -u origin main
    ```
 2. On GitHub, navigate to your repository:
@@ -134,7 +136,7 @@ Deploying takes under 1 minute with zero build commands:
    - Under **Branch**, select `main` and folder `/(root)`.
    - Click **Save**.
 3. In ~30 seconds, GitHub Pages will deploy your site at:
-   `https://manyaa113.github.io/relic-runner/`
+   `https://manyaa133.github.io/relic-runner/`
 
 ---
 
