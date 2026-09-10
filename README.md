@@ -1,4 +1,4 @@
-# 🏆 Relic Runner: The Lost Expeditions
+# Relic Runner: The Lost Expeditions
 
 > **An original 2D platformer inspired by classic retro platform games.**
 
@@ -6,49 +6,47 @@
 
 ---
 
-## 🎮 Play Online via GitHub Pages
+## Play Online via GitHub Pages
 
 You can play the game immediately in any modern desktop browser:
-👉 **[https://manyaa133.github.io/relic-runner/](https://manyaa133.github.io/relic-runner/)**
-
-*(Replace with your actual GitHub username and repository name once published)*
+**[https://manyaa133.github.io/relic-runner/](https://manyaa133.github.io/relic-runner/)**
 
 ---
 
-## ✨ Features
+## Features
 
-- **🕹️ Tight & Forgiving Physics**:
+- **Tight & Forgiving Physics**:
   - **Coyote Time (120ms)**: Jump shortly after stepping off a platform ledge.
   - **Jump Buffering (140ms)**: Jump inputs pressed just before touching ground execute automatically upon landing.
   - **Variable Jump Height**: Tap for short hops, hold for high leaps.
   - **Anti-Sticky Corner Slipping**: Smooth corner-nudging past overhead platform edges.
   - **Non-Slippery Traction**: Crisp acceleration and immediate stopping.
-- **👥 4 Selectable Original Heroes**: Distinct speed, jump agility, and survival attributes.
-- **🗺️ 4 Handcrafted Biome Levels**:
+- **4 Selectable Original Heroes**: Distinct speed, jump agility, and survival attributes.
+- **4 Handcrafted Biome Levels**:
   - **Level 1: Emerald Canopy** *(Forest Ruins)*
   - **Level 2: Forgotten Catacombs** *(Ancient Temple)*
   - **Level 3: Magma Foundry** *(Industrial Lava Caverns)*
   - **Level 4: Crystal Spire** *(Astral Cosmic Heights)*
-- **🚩 Fair Checkpoint & Lives Loop**:
+- **Fair Checkpoint & Lives Loop**:
   - Start with 3 (or 4) lives; discover hidden Extra Life Hearts ❤️ (+1 Life, max 6).
   - Checkpoint totems save your respawn position.
   - Post-hit invulnerability shield upon respawn.
   - Clear **Game Over** screen when all lives are exhausted (fresh start from Level 1).
-- **🎶 Procedural Web Audio Engine**:
+- **Procedural Web Audio Engine**:
   - Real-time algorithmic polyphonic chiptune soundtrack for menu, levels, game over, and victory.
   - Dynamic retro 8-bit/16-bit sound effects.
   - Audio starts automatically on first user interaction with full volume & mute controls.
-- **📺 Retro-Modern Visuals**:
+- **Retro-Modern Visuals**:
   - Procedural 16-bit pixel-art tilesets and animated parallax backgrounds.
   - Toggleable CRT scanline filter.
   - Responsive 16:9 canvas with letterboxing and Fullscreen mode (`⛶`).
   - Built-in collision boundaries debugger (`F3` or `B`).
-- **💾 LocalStorage Persistence**:
+- **LocalStorage Persistence**:
   - Automatically saves high scores, max level unlocked, hero selection, and audio settings.
 
 ---
 
-## 🕹️ Controls
+## Controls
 
 The game features **full dual-control parity** supporting both WASD and Arrow Keys simultaneously:
 
@@ -66,7 +64,7 @@ The game features **full dual-control parity** supporting both WASD and Arrow Ke
 
 ---
 
-## 👥 Character Roster
+## Character Roster
 
 | Hero | Title | Speed | Jump | Lives | Special Trait |
 | :--- | :--- | :---: | :---: | :---: | :--- |
@@ -77,13 +75,13 @@ The game features **full dual-control parity** supporting both WASD and Arrow Ke
 
 ---
 
-## 🏰 Level Information & Mechanics
+## Level Information & Mechanics
 
 1. **Collectibles**:
    - **Gold Coins** (+100 pts) & **Blue Gems** (+500 pts) reward exploration.
-   - **Ancient Keys 🔑**: Unlock sealed barrier gates on the path.
-   - **Sacred Relic 🏆**: Found in each chamber; required to open the Level Exit Portal.
-   - **Extra Life Heart ❤️**: Grants +1 Life with glowing particle bursts.
+   - **Ancient Keys**: Unlock sealed barrier gates on the path.
+   - **Sacred Relic**: Found in each chamber; required to open the Level Exit Portal.
+   - **Extra Life Heart**: Grants +1 Life with glowing particle bursts.
 2. **Hazards**:
    - **Molten Lava**: Instant fatal liquid hazard.
    - **Spikes & Thorns**: Multi-directional puncture damage.
@@ -97,7 +95,7 @@ The game features **full dual-control parity** supporting both WASD and Arrow Ke
 
 ---
 
-## 🚀 How to Run Locally
+## How to Run Locally
 
 Because the game is 100% static with no compilation step, you can run it locally in two easy ways:
 
@@ -116,7 +114,7 @@ Then visit `http://localhost:8000` in your browser.
 
 ---
 
-## 🌐 How to Deploy to GitHub Pages
+## How to Deploy to GitHub Pages
 
 The repository now includes a GitHub Actions workflow so Pages deploys automatically from the `main` branch.
 
@@ -139,7 +137,7 @@ The repository now includes a GitHub Actions workflow so Pages deploys automatic
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 ├── index.html              # Main HTML entry point & UI overlays
@@ -178,7 +176,7 @@ The repository now includes a GitHub Actions workflow so Pages deploys automatic
 
 ---
 
-## 📄 License & Attribution
+## License & Attribution
 
 - **Original Game Concept**: All character designs, sprites, levels, mechanics, sound synthesis routines, and code in this project are original creations.
 - No copyrighted characters, artwork, audio recordings, or assets from *Dangerous Dave* or other commercial titles are used.
