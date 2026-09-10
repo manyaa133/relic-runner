@@ -118,7 +118,7 @@ Then visit `http://localhost:8000` in your browser.
 
 ## 🌐 How to Deploy to GitHub Pages
 
-Deploying takes under 1 minute with zero build commands:
+The repository now includes a GitHub Actions workflow so Pages deploys automatically from the `main` branch.
 
 1. **Push your code** to your GitHub repository:
    ```bash
@@ -131,11 +131,10 @@ Deploying takes under 1 minute with zero build commands:
    ```
 2. On GitHub, navigate to your repository:
    - Click **Settings** (tab at top).
-   - Scroll down to the **Pages** section on the left sidebar.
-   - Under **Build and deployment** > **Source**, choose **Deploy from a branch**.
-   - Under **Branch**, select `main` and folder `/(root)`.
-   - Click **Save**.
-3. In ~30 seconds, GitHub Pages will deploy your site at:
+   - Open **Pages** in the left sidebar.
+   - Under **Build and deployment** > **Source**, choose **GitHub Actions**.
+   - Save the setting and wait for the workflow to run.
+3. In a minute or two, GitHub Pages will deploy your site at:
    `https://manyaa133.github.io/relic-runner/`
 
 ---
